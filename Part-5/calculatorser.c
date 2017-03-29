@@ -7,14 +7,32 @@
 void echo_rev(int connfd)
 {
     ssize_t n = 0;
-    char buff[MAXLINE];
-    int val1, val2;
+    char buff[MAXLINE], opera;
+    double val1, val2;
 
     while ((n = Readline(connfd, buff, MAXLINE)) != 0) {
         // printf("%s", buff);
-        if (sscanf(buff, "%d%d", &val1, &val2) == 2) {
+        if (sscanf(buff, "%f%c%f", &val1, &opera, &val2) == 3) {
             // printf("%d %d\n", val1, val2);
-            snprintf(buff, sizeof(buff), "%d\n", (val1+val2));
+            double result = 0.0;
+            switch (opera) {
+                case '+':
+                    result = val1 + val2;
+                    break;
+                case '-':
+                    result = val1 - val2;
+                    break;
+                case '*':
+                    result = val1 * val2;
+                    break;
+                case '/':
+                    result = val1 / val2;
+                    break;
+                default:
+                    result = -1;
+                    break;
+            }
+            snprintf(buff, sizeof(buff), "%d\n", result);
             // printf("%s\n", buff);
         } else {
             // printf("2-\n");
