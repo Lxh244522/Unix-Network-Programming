@@ -55,7 +55,7 @@ int main(int argc, char const *argv[])
     Inet_pton(AF_INET, argv[1], &servaddr.sin_addr);
 
     Connect(sockfd, (SA *)& servaddr, sizeof(servaddr));
-    // FILE *fp = fopen("./5-1cli.c", "rb");
+    // FILE *fp = fopen("./6.4cli.c", "rb");
     str_cli(stdin, sockfd);
     return 0;
 }
