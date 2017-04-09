@@ -54,11 +54,15 @@ void sctpstr_cli_echoall(FILE *fp, int sock_fd, struct sockaddr *to,
         }
         for (i=0; i<SERV_MAX_SCTP_STRM; i++) {
             snprintf(sendline + strsz, sizeof(sendline) - strsz,
-                    ".msg.%d", i);
+                    ".msg.%d 1", i);
+            Sctp_sendmsg(sock_fd, sendline, sizeof(sendline),
+                        to, tolen, 0, 0, i, 0, 0);
+            snprintf(sendline + strsz, sizeof(sendline) - strsz,
+                    ".msg.%d 2", i);
             Sctp_sendmsg(sock_fd, sendline, sizeof(sendline),
                         to, tolen, 0, 0, i, 0, 0);
         }
-        for (i=0; i<SERV_MAX_SCTP_STRM; i++) {
+        for (i=0; i<SERV_MAX_SCTP_STRM*2; i++) {
             len = sizeof(peeraddr);
             rd_sz = sctp_recvmsg(sock_fd, recvline, sizeof(recvline),
                                 (SA *) &peeraddr, &len, &sri, &msg_flags);
@@ -99,6 +103,12 @@ int main(int argc, char const *argv[])
     else
         sctpstr_cli_echoall(stdin, sock_fd, (SA *) &servaddr,
                             sizeof(servaddr));
+
+    // char *byemsg;
+    // strcpy(byemsg, "goodbye");
+    // Stcp_sendmsg(sock_fd, byemsg, strlen(byemsg),
+    //             (SA *) &servaddr, sizeof(servaddr), 0, SCTP_ABORT, 0, 0, 0);
+
     Close(sock_fd);
     return 0;
 }

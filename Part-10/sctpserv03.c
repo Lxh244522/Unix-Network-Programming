@@ -39,7 +39,7 @@ int main(int argc, char const *argv[])
         Sctp_sendmsg(sock_fd, readbuf, rd_sz,
                     (SA *) &cliaddr, len,
                     sri.sinfo_ppid,
-                    sri.sinfo_flags, sri.sinfo_stream, 0, 0);
+                    (sri.sinfo_flags | MSG_EOF), sri.sinfo_stream, 0, 0);
     }
     return 0;
 }

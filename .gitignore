@@ -41,3 +41,12 @@ Part-8/udpservselect
 Part-8/udpdgserloop
 Part-6/6.7cli
 Part-6/6.4
+Part-11/hostnet
+Part-11/daytimetcpcli1
+Part-11/daytimetcpcli
+Part-10/sctp_wrapper.o
+Part-10/sctp_getnostrm.o
+Part-10/sctpserv01
+Part-10/sctpclient01.o
+Part-10/sctpserv01.o
+Part-10/sctp_addr_to_associd.o
